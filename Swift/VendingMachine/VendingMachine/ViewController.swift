@@ -17,8 +17,15 @@ class ViewController: UIViewController {
         
         // add it to the image view;
         VendItem1.addGestureRecognizer(tapGesture)
+        VendItem2.addGestureRecognizer(tapGesture)
+        VendItem3.addGestureRecognizer(tapGesture)
+        VendItem4.addGestureRecognizer(tapGesture)
         // make sure imageView can be interacted with by user
         VendItem1.isUserInteractionEnabled = true
+        VendItem2.isUserInteractionEnabled = true
+        VendItem3.isUserInteractionEnabled = true
+        VendItem4.isUserInteractionEnabled = true
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,6 +35,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var VendItem1: UIImageView!
     @IBOutlet weak var VendItem2: UIImageView!
+    @IBOutlet weak var VendItem3: UIImageView!
+    @IBOutlet weak var VendItem4: UIImageView!
     
     @IBOutlet weak var CurrentPriceLabel: UILabel!
     
