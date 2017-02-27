@@ -10,43 +10,68 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var currentPrice: Float = 0
+    
+    @IBOutlet weak var CurrentPriceLabel: UILabel!
+    
+    @IBAction func item2(_ sender: Any) {
+        currentPrice = 10
+        UpdatePrice()
+    }
+    @IBAction func item1(_ sender: Any) {
+        currentPrice = 20
+        UpdatePrice()
+    }
+    @IBAction func item3(_ sender: Any) {
+        currentPrice = 30
+        UpdatePrice()
+    }
+    @IBAction func item4(_ sender: Any) {
+        currentPrice = 40
+        UpdatePrice()
+    }
+    
+    func GetCurrentPrice() -> String{
+        return String(format: "%.2f", currentPrice)
+    }
+    
+    func UpdatePrice(){
+        CurrentPriceLabel.text = "$" + GetCurrentPrice()
+    }
+    
+    @IBAction func buyBtn(_ sender: Any) {
+        // create the alert
+        let msg = currentPrice < 1 ? "Please select an item!" : "Are you sure? $" + GetCurrentPrice()
+        
+        
+        let alert = UIAlertController(title: "Purchase Confirmation", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        
+        if(currentPrice > 0){
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: nil))
+        }else{
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+
+        }
+       
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ViewController.imageTapped(gesture:)))
-        
-        // add it to the image view;
-        VendItem1.addGestureRecognizer(tapGesture)
-        VendItem2.addGestureRecognizer(tapGesture)
-        VendItem3.addGestureRecognizer(tapGesture)
-        VendItem4.addGestureRecognizer(tapGesture)
-        // make sure imageView can be interacted with by user
-        VendItem1.isUserInteractionEnabled = true
-        VendItem2.isUserInteractionEnabled = true
-        VendItem3.isUserInteractionEnabled = true
-        VendItem4.isUserInteractionEnabled = true
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var VendItem1: UIImageView!
-    @IBOutlet weak var VendItem2: UIImageView!
-    @IBOutlet weak var VendItem3: UIImageView!
-    @IBOutlet weak var VendItem4: UIImageView!
     
-    @IBOutlet weak var CurrentPriceLabel: UILabel!
     
-    func imageTapped(gesture: UIGestureRecognizer) {
-        // if the tapped view is a UIImageView then set it to imageview
-        if (gesture.view as? UIImageView) != nil {
-            CurrentPriceLabel.text = "Rs. 10"
-            //Here you can initiate your new ViewController
-            
-        }
+    
+    
     }
-}
 
