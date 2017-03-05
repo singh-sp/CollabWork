@@ -14,34 +14,35 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var CurrentPriceLabel: UILabel!
     
-    @IBAction func item2(_ sender: Any) {
-        currentPrice = 10
-        UpdatePrice()
-    }
     @IBAction func item1(_ sender: Any) {
-        currentPrice = 20
-        UpdatePrice()
+        UpdatePrice(newPrice: 10)
     }
+    
+    @IBAction func item2(_ sender: Any) {
+        UpdatePrice(newPrice: 20)
+    }
+    
     @IBAction func item3(_ sender: Any) {
-        currentPrice = 30
-        UpdatePrice()
+        UpdatePrice(newPrice: 30)
     }
+    
     @IBAction func item4(_ sender: Any) {
-        currentPrice = 40
-        UpdatePrice()
+        UpdatePrice(newPrice: 40)
     }
     
     func GetCurrentPrice() -> String{
         return String(format: "%.2f", currentPrice)
     }
     
-    func UpdatePrice(){
+    func UpdatePrice(newPrice: Float){
+        currentPrice = newPrice
         CurrentPriceLabel.text = "$" + GetCurrentPrice()
     }
     
     @IBAction func buyBtn(_ sender: Any) {
         // create the alert
-        let msg = currentPrice < 1 ? "Please select an item!" : "Are you sure? $" + GetCurrentPrice()
+        let msg = currentPrice < 1 ? "Please select an item!" :
+            "Are you sure? $" + GetCurrentPrice()
         
         
         let alert = UIAlertController(title: "Purchase Confirmation", message: msg, preferredStyle: UIAlertControllerStyle.alert)
@@ -49,6 +50,7 @@ class ViewController: UIViewController {
         if(currentPrice > 0){
             // add an action (button)
             alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: nil))
+            
             alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: nil))
         }else{
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
