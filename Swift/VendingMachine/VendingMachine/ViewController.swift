@@ -10,44 +10,46 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var currentPrice: Float = 0
+    var currentProduct: Product? = nil
     
     @IBOutlet weak var CurrentPriceLabel: UILabel!
     
     @IBAction func item1(_ sender: Any) {
-        UpdatePrice(newPrice: 10)
+       UpdatePrice(prod: GetProductByUPC(upc: 1))
     }
     
     @IBAction func item2(_ sender: Any) {
-        UpdatePrice(newPrice: 20)
+        UpdatePrice(prod: GetProductByUPC(upc: 2))
     }
     
     @IBAction func item3(_ sender: Any) {
-        UpdatePrice(newPrice: 30)
+        UpdatePrice(prod: GetProductByUPC(upc: 3))
     }
     
     @IBAction func item4(_ sender: Any) {
-        UpdatePrice(newPrice: 40)
+        UpdatePrice(prod: GetProductByUPC(upc: 4))
     }
     
-    func GetCurrentPrice() -> String{
-        return String(format: "%.2f", currentPrice)
+    func GetProductByUPC(upc: Int) -> Product{
+        return ProductsProvider.Products.first(where: {$0.upc == upc})!
     }
     
-    func UpdatePrice(newPrice: Float){
-        currentPrice = newPrice
-        CurrentPriceLabel.text = "$" + GetCurrentPrice()
+    func UpdatePrice(prod: Product){
+        currentProduct = prod;
+        CurrentPriceLabel.text = prod.GetFormattedPrice()
     }
     
     @IBAction func buyBtn(_ sender: Any) {
         // create the alert
-        let msg = currentPrice < 1 ? "Please select an item!" :
-            "Are you sure? $" + GetCurrentPrice()
+        let currenPrice: Float = (currentProduct?.price)!;
+        
+        let msg = currenPrice < 1 ? "Please select an item!" :
+            "Are you sure? " + (currentProduct?.GetFormattedPrice())!
         
         
         let alert = UIAlertController(title: "Purchase Confirmation", message: msg, preferredStyle: UIAlertControllerStyle.alert)
         
-        if(currentPrice > 0){
+        if(currenPrice > 0){
             // add an action (button)
             alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: nil))
             
