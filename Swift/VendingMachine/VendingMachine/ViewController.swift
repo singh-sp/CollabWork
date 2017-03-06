@@ -51,7 +51,13 @@ class ViewController: UIViewController {
         
         if(currenPrice > 0){
             // add an action (button)
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { _ -> Void in
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let nextViewController = storyBoard.instantiateViewController(withIdentifier: "ViewController2")
+            self.present(nextViewController, animated: true, completion: nil)
+            
+        }))
+            
             
             alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: nil))
         }else{
